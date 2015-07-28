@@ -14,6 +14,9 @@ class Game
      entrance
   end
 
+
+
+
   def entrance
     puts "This is Mastermind. Play a game?"
     response = gets.chomp.upcase
@@ -24,5 +27,80 @@ class Game
       get_name
     else
       exit_game
+    end
+  end
+
+
+
+
+  def validate_guess(response)
+    @response = response
+
+    until response == "YES" || response == "NO"
+      puts ""
+      puts "Say yes or no."
+      response = gets.chomp.upcase
+      guesses += 1
+    end
+  end
+
+
+
+
+  def get_name
+    puts "What\'s your name?"
+    @name = gets.chomp
+    puts ""
+    instructions
+  end
+
+
+
+
+  def instructions
+    puts "#{@name} do you know the rules?"
+    response = gets.chomp.upcase
+
+    validate_guess(response)
+
+    if response == "YES"
+      start_game
+    elsif response == "NO"
+      show_instructions
+    else
+      puts ""
+    end
+  end
+
+
+
+
+  def show_instructions
+    puts ""
+    puts "View instructions?"
+    response = gets.chomp.upcase
+
+    if response == "YES"
+      instructions
+      puts ""
+      puts "Play?"
+      new_response = gets.chomp.upcase
+      if new_response == "YES"
+        start_game
+      else
+      end
+    else
+      puts ""
+      puts "Enter 'play' or 'exit'"
+      playexitresponse = gets.chomp.upcase
+
+      if playexitresponse == "PLAY"
+        play_game
+      elsif playexitresponse == "EXIT"
+        exit_game
+      else
+        puts "Try again."
+        show_instructions
+      end
     end
   end
