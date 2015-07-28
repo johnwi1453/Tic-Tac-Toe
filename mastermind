@@ -5,7 +5,7 @@
 
 
 
-class Game
+class Mastermind
   def initialize
     @colors = ["BLACK", "WHITE", "RED", "YELLOW", "GREEN"]
     @guesses = 0
@@ -104,3 +104,135 @@ class Game
       end
     end
   end
+
+
+
+
+  def exit_game
+    puts ""
+    puts "Goodbye."
+    puts ""
+    puts ""
+    exit
+  end
+
+
+
+
+  def instructions
+    puts ""
+    puts "You must break a code consisting of 4 random integers."
+    puts "You have 12 guesses. Red means you're wrong."
+  end
+
+
+
+
+  def take_guess
+    while @guesses < @max_guesses
+      @guesses += 1
+      puts "Take a guess: "
+      @guess = gets.chomp.upcase.split(", ")
+      check_valid(@guess)
+      puts ""
+      puts "You have #{@max_guesses - @guesses} guesses left."
+      puts ""
+    end
+  end
+
+
+
+
+  def check_valid(guess)
+    if guess.count == 4 && guess.all? { |x| @colors.include?(x) }
+      evaluate_guess(@guess, @new_code)
+    else
+      incorrect_entry
+    end
+  end
+
+
+
+
+  def evaluate_guess(guess, code)
+    if guess.eql?(code)
+      announce_winner
+    else
+      puts ""
+      for i in 0..(guess.length - 1)
+        if guess[i] == code[i]
+          puts "Red peg for #{guess[i]}."
+        elsif  code.include?(guess[i])
+          puts "White peg for #{guess[i]}."
+        else
+          puts "BLANK"
+        end
+      i += 1
+      end
+    end
+  end
+
+
+
+
+  def announce_winner
+    puts "You won!"
+    new_game?
+  end
+
+
+
+
+  def new_game?
+    @guesses = 0
+    puts ""
+    puts "Play again?"
+    response = gets.chomp.upcase
+
+    until response == "YES" || response == "NO"
+      puts "Try again."
+      response = gets.chomp.upcase
+    end
+
+    if response == "YES"
+      puts "Here we go!"
+      new_game
+    elsif response == "NO"
+      puts "Game over. Bye."
+      puts ""
+      puts ""
+      exit
+    end
+  end
+
+
+
+
+  def incorrect_entry
+    puts "That is incorrect."
+  end
+
+
+
+
+  def max_guesses
+    return 13
+  end
+
+
+
+
+  class Game
+    attr_accessor :new_code
+
+    def initialize
+      @colors = ["BLACK", "WHITE", "RED", "YELLOW", "GREEN"]
+      @new_code = @colors.sample(4)
+      puts ""
+    end
+  end
+end
+
+
+
+a = Mastermind.new
