@@ -1,0 +1,15 @@
+# Mastermind from Odin Project - http://www.theodinproject.com/ruby-programming/oop
+# Create a mastermind game from the command line - will have no AI.
+# Object oriented programming section.
+
+
+
+
+class Game
+  def initialize
+    @colors = ["BLACK", "WHITE", "RED", "YELLOW", "GREEN"]
+    @guesses = 0
+    @max_guesses = 12
+
+     elcome
+  end
