@@ -11,5 +11,18 @@ class Game
     @guesses = 0
     @max_guesses = 12
 
-     elcome
+     entrance
+  end
+
+  def entrance
+    puts "This is Mastermind. Play a game?"
+    response = gets.chomp.upcase
+
+    validate_guess(response)
+    if response == "YES"
+      puts ""
+      get_name
+    else
+      exit_game
+    end
   end
